@@ -70,7 +70,7 @@ Sain poistettua sen ja jatkoin tehtäväntekoa. Aloitin uudestaan vagrantin ja s
 
 Vagrant siis käynnistyi. 
 
-Klo 17.42 tuli uusi ongelma vastaan. 
+16.11 Klo 17.42 tuli uusi ongelma vastaan. 
 
 
 Seuraava ongelma saapui, kun port 8888, minkä lisäsin debianiin ei suostunut näkymään host-koneessani. Lisäsin sen siis itselleni vagrantfileen host koneessa komennolla config.vm.network "forwarded_port", guest: 8888, host: 8888 ja tallensin sen. 
@@ -84,9 +84,40 @@ Kokeilin seuraavaksi uudestaan sitä reloadamalla vagrantin ja se onnistui.
 Käytin windowsin omaa komentoa Test-NetConnectia tilanteessa, sillä en käytä tällä hetkellä linuxia hostina. 
 
 
+16.11 Klo 18.25
+
+Seuraavaksi aloin luomaan sls-tiedoston ja salt mallin, jotka saisin host koneelle. 
+
+
+Tässä muodostui taas uusi ongelma.
+
+
+<img width="299" height="93" alt="image" src="https://github.com/user-attachments/assets/594070a7-4e3a-4304-86d5-303aa3463efe" />
+
+
+Minulla tiedosto näyttää portin olevan lisätty, mutta se ei silti ole päällä?
+
+
+<img width="448" height="228" alt="image" src="https://github.com/user-attachments/assets/157e6174-2d18-41a2-b2a6-273f17ffe145" />
 
 
 
+8888 ei muodostu. Nyt ongelma muodostuu host koneella. 
+
+
+16.11 klo 20.27 ties mones ongelma jatkui. 
+
+
+<img width="580" height="107" alt="image" src="https://github.com/user-attachments/assets/b0d3e9cd-116f-4245-b2d3-4a6e45576416" />
+
+Yhteys vain sulkeutuu enkä tiedä, miten jatkaa. 
+
+
+Nyt en pääse tekemään mitään jatkoa. Kuitenkin lopullinen testi SSH-yhteydellä portilla 8888 (ssh -p 8888 oskari@127.0.0.1) epäonnistui toistuvasti "kex_exchange_identification: read: Connection aborted" -virheellä – vaikka config, firewall (ufw allow 8888) ja forwarding olivat OK, sshd ei vastannut banner-vaiheessa (en tiedä oliko kyseessä VM sisäinen ongelma vai mikäö). En pystynyt tekemään täyttä SLS-tiedoston testausta (state.apply) tämän yhteysongelman takia, sillä se estää host-koneelta VM:ään pääsyn. Tehtävä lopulta epäonnistui, sillä se ei yhdistä host-koneelta.
+
+
+
+16.11 klo 21.31 tehtävän lopulta päätin, kun en päässyt eteenpäin. Yritin katsella VM sisällä olevia portteja ja katsoa, että port forwarding asetuksissa oli ok. Kesti kauan, mutta en päässyt loppuun asti. 
 
 
 
